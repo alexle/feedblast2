@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>FeedBlast!</title>
+
+      <script type="text/javascript" src="https://www.google.com/jsapi?key=ABQIAAAAM2UytaEFhHn5y54UkEpndBSOzjIHE7NyxBnJQzMPciZ_6TheZRTZOOKYwfEEGxqo0ciIPtQik3A__Q"></script>
+      <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.js"></script>
+
+      <script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
+      <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+      <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
+      <script src="javascript/feedblast.js" type="text/javascript" language="javascript"></script>
+      <link href="css/feedblast.css" rel="stylesheet" type="text/css"></link>
+   </head>
+
+   <body onload="InitProgram( '{{ lang }}' )">
+
+      <div id="top-wrapper">
+         <div id="header-left">
+            <a href="/"><h1>FeedBlast!</h1><sub>..a new way to read your feeds</sub></a>
+         </div>
+         <div id="header-middle">
+            Choose a feed.<br>
+            Choose a language. Blast it!
+         </div>
+         <div id="header-right">
+            <button class='button next' onclick="PrintNextWord()">Next 7</button>
+
+            <!-- Google login (disable for now)
+            {% if user.nickname %}
+               <!-- {{ user.nickname }} | -->
+               <a href="{{ url }}" class="button goo">Sign out</a>
+            {% else %}
+               <a href="{{ url }}" class="button goo">Sign in</a>
+            {% endif %}
+            -->
+         </div>
+      </div>
+
+      <hr>
+
+      <div id="bottom-wrapper">
+
+         <div id="content-left">
+            1. Feed<div id="link_box"></div><hr>
+            <!-- Feed option -->
+            <select id='feed_select' onchange='ParseFeed()'>
+               <option value="http://feeds.feedburner.com/typepad/sethsmainblog">Seth Godin</option>
+               <option value="http://feeds.feedburner.com/codinghorror/">Coding Horror</option>
+               <option value="http://feeds.feedburner.com/zenhabits">Zen Habits</option>
+               <option value="http://www.blogmaverick.com/feed">Mark Cuban</option>
+            </select>
+            <br><br>
+
+            2. Language<hr>
+            <!-- Language option -->
+            <select id="lang_select" onchange="TranslateFeed()">
+               <option value="vi">Vietnamese</option>
+               <option value="fr">French</option>
+               <option value="es">Spanish</option>
+               <option value="de">German</option>
+               <option value="it">Italian</option>
+               <option value="sv">Swedish</option>
+               <option value="nl">Dutch</option>
+               <option value="ru">Russian</option>
+               <option value="ja">Japanese</option>
+               <option value="zh-CHS">Chinese</option>
+               <option value="ko">Korean</option>
+               <option value="pt">Portuguese</option>
+               <option value="da">Danish</option>
+            </select>
+
+
+            <br><br><br>
+            <font size="2px">*click sentence to translate</font>
+         </div>
+
+         <div id="loading">
+            <p><img src="images/ajax-loader.gif" /></p>
+         </div> <!-- loading -->
+
+         <div id="content-right">
+            <div id='toggle1'></div>
+            <div onclick="ToggleBox1()" id='box1'></div>
+            <div id='t_box1'></div><hr>
+
+            <div id='toggle2'></div>
+            <div onclick="ToggleBox2()" id='box2'></div>
+            <div id='t_box2'></div><hr>
+
+            <div id='toggle3'></div>
+            <div onclick="ToggleBox3()" id='box3'></div>
+            <div id='t_box3'></div><hr>
+
+            <div id='toggle4'></div>
+            <div onclick="ToggleBox4()" id='box4'></div>
+            <div id='t_box4'></div><hr>
+
+            <div id='toggle5'></div>
+            <div onclick="ToggleBox5()" id='box5'></div>
+            <div id='t_box5'></div><hr>
+
+            <div id='toggle6'></div>
+            <div onclick="ToggleBox6()" id='box6'></div>
+            <div id='t_box6'></div><hr>
+
+            <div id='toggle7'></div>
+            <div onclick="ToggleBox7()" id='box7'></div>
+            <div id='t_box7'></div><hr>
+
+            <!-- Footer -->
+            <div id="footer">
+               &copy; 2011 FeedBlast &nbsp;|
+               <a href="about">About</a> &nbsp;|
+               &nbsp;Made by <a href="http:\\alextrle.blogspot.com" target="_blank">Alex Le</a><br><br>
+               <a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="alextrle">Tweet</a>
+               &nbsp;&nbsp;<g:plusone size="medium"></g:plusone>
+               <script type="text/javascript">
+               (function() {
+                  var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                  po.src = 'https://apis.google.com/js/plusone.js';
+                  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+               })();
+               </script>
+               <iframe src="http://www.facebook.com/plugins/like.php?app_id=235529029797252&amp;href=http%3A%2F%2Ffeedblast.me&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:21px;" allowTransparency="true"></iframe>
+            </div>
+         </div> <!-- content-right -->
+
+      </div> <!-- wrapper -->
+
+
+      <!-- Feedback Tab -->
+      <script type="text/javascript">
+         function _loadUserVoice() {
+           var s = document.createElement('script');
+           s.setAttribute('type', 'text/javascript');
+           s.setAttribute('src', ("https:" == document.location.protocol ? "https://" : "http://") + "cdn.uservoice.com/javascripts/widgets/tab.js");
+           document.getElementsByTagName('head')[0].appendChild(s);
+         }
+         _loadSuper = window.onload;
+         window.onload = (typeof window.onload != 'function') ? _loadUserVoice : function() { _loadSuper(); _loadUserVoice(); };
+      </script>
+
+   </body>
+
+</html>
+
+
