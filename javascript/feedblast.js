@@ -146,6 +146,7 @@ function ParseFeed( lang ) {
             var entry = result.feed.entries[i];
             feed_string += (entry.title + '.' + entry.content + ' ').replace(/(<([^>]+)>)/ig,"");
          }
+         alert(feed_string);
 
          // Strip out quotations, parentheses, and brackets
          feed_string = feed_string.replace(/["()[\]]/g,'');
